@@ -416,3 +416,15 @@ rename to new-path.rs
     assert_eq!(patches[0].new.path, "new-path.rs");
     assert!(patches[0].hunks.is_empty());
 }
+
+#[test]
+fn test_git_patch() -> Result<(), ParseError<'static>> {
+    let cmake_diff_src = include_str!("./git-samples/cmake.diff");
+    let cmake_patch_src = include_str!("./git-samples/cmake.diff");
+    let cmake_diff = Patch::from_multiple(cmake_diff_src)?;
+    let cmake_patch = Patch::from_multiple(cmake_patch_src)?;
+
+    assert_eq!(cmake_diff, cmake_patch);
+
+    Ok(())
+}
